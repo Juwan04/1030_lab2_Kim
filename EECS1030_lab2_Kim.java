@@ -1,5 +1,43 @@
+import java.util.Scanner;
+
 public class EECS1030_lab2_Kim {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      
+      boolean[] chptList = new boolean[16]; // Valid chapters are 1-15. 1 means include, 0 exclude. Element 0 unused. 
+      int includeChpt;
+      int i, j;
+      
+      // Get the chapter selections
+      for (i = 1; i <= 15; ++i) {
+         includeChpt = scnr.nextInt(); 
+         chptList[i] = (includeChpt == 1);
+      }
+
+      boolean any = false;
+
+      for (i = 1; i <= 15; ++i) {
+         if (chptList[i]) {
+            any = true;
+
+            if (i <= 13 && chptList[i+1] && chptList[i+2]) {
+               j = i + 2;
+               while (j < 15 && chptList[j+1]) {
+                  j++;
+               }
+               System.out.print(i + "-" + j + " ");
+               i = j;
+            }
+            else {
+               System.out.print(i + " ");
+            }
+         }
+      }
+
+      if (!any) {
+         System.out.print("None ");
+      }
+
+      System.out.println();
+   }
 }
